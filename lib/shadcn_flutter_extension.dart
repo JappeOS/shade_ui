@@ -1,4 +1,4 @@
-library shadcn_flutter_extension;
+library shade_ui_extension;
 
 // This file exports extensions only.
 

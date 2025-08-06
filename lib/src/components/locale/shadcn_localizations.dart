@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 
-import '../../../shadcn_flutter.dart';
+import '../../../shade_ui.dart';
 
 class ShadcnLocalizationsDelegate
     extends LocalizationsDelegate<ShadcnLocalizations> {

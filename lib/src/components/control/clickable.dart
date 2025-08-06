@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:shadcn_flutter/src/components/layout/focus_outline.dart';
+import 'package:shade_ui/shade_ui.dart';
+import 'package:shade_ui/src/components/layout/focus_outline.dart';
 
 extension WidgetStateExtension on Set<WidgetState> {
   bool get disabled => contains(WidgetState.disabled);

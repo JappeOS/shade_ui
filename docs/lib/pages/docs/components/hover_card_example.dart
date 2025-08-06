@@ -1,7 +1,7 @@
 import 'package:docs/pages/docs/component_page.dart';
 import 'package:docs/pages/docs/components/hover_card/hover_card_example_1.dart';
 import 'package:docs/pages/widget_usage_example.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class HoverCardExample extends StatelessWidget {
   const HoverCardExample({super.key});

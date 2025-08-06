@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class NumberTickerExample1 extends StatefulWidget {
   const NumberTickerExample1({super.key});

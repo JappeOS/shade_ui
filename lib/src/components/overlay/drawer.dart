@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 typedef DrawerBuilder = Widget Function(BuildContext context, Size extraSize,
     Size size, EdgeInsets padding, int stackIndex);
@@ -1595,7 +1595,7 @@ class DrawerOverlayCompleter<T> extends OverlayCompleter<T> {
 
 class SheetOverlayHandler extends OverlayHandler {
   static bool isSheetOverlay(BuildContext context) {
-    return Model.maybeOf<bool>(context, #shadcn_flutter_sheet_overlay) == true;
+    return Model.maybeOf<bool>(context, #shade_ui_sheet_overlay) == true;
   }
 
   final OverlayPosition position;
@@ -1655,7 +1655,7 @@ class SheetOverlayHandler extends OverlayHandler {
         final theme = Theme.of(context);
         return MultiModel(
           data: const [
-            Model(#shadcn_flutter_sheet_overlay, true),
+            Model(#shade_ui_sheet_overlay, true),
           ],
           child: SheetWrapper(
             position: this.position,

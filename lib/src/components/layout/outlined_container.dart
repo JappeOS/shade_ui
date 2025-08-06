@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import '../../../shadcn_flutter.dart';
+import '../../../shade_ui.dart';
 
 class SurfaceBlur extends StatefulWidget {
   final Widget child;
@@ -138,6 +138,110 @@ class _OutlinedContainerState extends State<OutlinedContainer> {
         borderRadius: subtractByBorder(
           borderRadius,
           widget.borderWidth ?? (1 * scaling),
+        ),
+        child: childWidget,
+      );
+    }
+    return childWidget;
+  }
+}
+
+class DualBorderOutlinedContainer extends StatefulWidget {
+  final Widget child;
+  final Color? backgroundColor;
+  final Clip clipBehavior;
+  final BorderRadiusGeometry? borderRadius;
+  final List<BoxShadow>? boxShadow;
+  final EdgeInsetsGeometry? padding;
+  final double? surfaceOpacity;
+  final double? surfaceBlur;
+  final double? width;
+  final double? height;
+  final Duration? duration;
+  const DualBorderOutlinedContainer({
+    super.key,
+    required this.child,
+    this.backgroundColor,
+    this.clipBehavior = Clip.antiAlias,
+    this.borderRadius,
+    this.boxShadow,
+    this.padding,
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.width,
+    this.height,
+    this.duration,
+  });
+
+  @override
+  State<DualBorderOutlinedContainer> createState() => _DualBorderOutlinedContainerState();
+}
+
+class _DualBorderOutlinedContainerState extends State<DualBorderOutlinedContainer> {
+  final GlobalKey _mainContainerKey = GlobalKey();
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final scaling = theme.scaling;
+    var borderRadius =
+        widget.borderRadius?.resolve(Directionality.of(context)) ??
+            BorderRadius.circular(theme.radiusXl);
+    var backgroundColor =
+        widget.backgroundColor ?? theme.colorScheme.background;
+    if (widget.surfaceOpacity != null) {
+      backgroundColor = backgroundColor.scaleAlpha(widget.surfaceOpacity!);
+    }
+    final innerBorderColor = theme.colorScheme.muted;
+    const outerBorderColor = Colors.black;
+    Widget childWidget = AnimatedContainer(
+      key: _mainContainerKey,
+      duration: widget.duration ?? Duration.zero,
+      width: widget.width,
+      height: widget.height,
+      foregroundDecoration: BoxDecoration(
+        border: Border.all(
+          color: outerBorderColor,
+          width: (1 * scaling),
+          style: BorderStyle.solid,
+          strokeAlign: BorderSide.strokeAlignOutside,
+        ),
+        borderRadius: borderRadius,
+      ),
+      child: AnimatedContainer(
+        duration: widget.duration ?? Duration.zero,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          boxShadow: widget.boxShadow,
+        ),
+        foregroundDecoration: BoxDecoration(
+          border: Border.all(
+            color: innerBorderColor,
+            width: (1 * scaling),
+            style: BorderStyle.solid,
+            strokeAlign: BorderSide.strokeAlignInside,
+          ),
+          borderRadius: borderRadius,
+        ),
+        child: AnimatedContainer(
+          duration: widget.duration ?? Duration.zero,
+          padding: widget.padding,
+          clipBehavior: widget.clipBehavior,
+          decoration: BoxDecoration(
+            borderRadius: subtractByBorder(
+              borderRadius,
+              1 * scaling,
+            ),
+          ),
+          child: widget.child,
+        ),
+      ),
+    );
+    if (widget.surfaceBlur != null && widget.surfaceBlur! > 0) {
+      childWidget = SurfaceBlur(
+        surfaceBlur: widget.surfaceBlur!,
+        borderRadius: subtractByBorder(
+          borderRadius,
+          1 * scaling,
         ),
         child: childWidget,
       );

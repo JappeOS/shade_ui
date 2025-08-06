@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:shadcn_flutter/src/components/control/hover.dart';
+import 'package:shade_ui/shade_ui.dart';
+import 'package:shade_ui/src/components/control/hover.dart';
 
 class SelectController<T> extends ValueNotifier<T?>
     with ComponentController<T?> {

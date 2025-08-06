@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 // This helps to simulate middle hold scroll on web and desktop platforms
 class ScrollViewInterceptor extends StatefulWidget {
@@ -83,7 +83,7 @@ class _ScrollViewInterceptorState extends State<ScrollViewInterceptor>
         FlutterError.reportError(FlutterErrorDetails(
           exception: e,
           stack: s,
-          library: 'shadcn_flutter',
+          library: 'shade_ui',
           context: ErrorDescription('while dispatching a pointer scroll event'),
         ));
       }

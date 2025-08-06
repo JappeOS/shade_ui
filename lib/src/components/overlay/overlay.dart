@@ -1,4 +1,4 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 Future<void> closeOverlay<T>(BuildContext context, [T? value]) {
   return Data.maybeFind<OverlayHandlerStateMixin>(context)

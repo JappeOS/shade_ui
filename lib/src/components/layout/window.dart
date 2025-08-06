@@ -1,9 +1,9 @@
 import 'dart:collection';
 import 'dart:ui';
 
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:shadcn_flutter/src/components/layout/group.dart';
-import 'package:shadcn_flutter/src/components/patch.dart';
+import 'package:shade_ui/shade_ui.dart';
+import 'package:shade_ui/src/components/layout/group.dart';
+import 'package:shade_ui/src/components/patch.dart';
 
 class WindowSnapStrategy {
   final Rect relativeBounds;

@@ -1,6 +1,6 @@
 import 'package:docs/pages/docs/components/navigation_bar/navigation_bar_example_1.dart';
 import 'package:docs/pages/widget_usage_example.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 import '../component_page.dart';
 

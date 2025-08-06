@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
 
-import '../../../shadcn_flutter.dart';
+import '../../../shade_ui.dart';
 
 enum ImageType { png, jpg, gif, bmp, tiff, tga, pvr, ico }
 

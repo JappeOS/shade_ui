@@ -15,7 +15,7 @@ import 'package:docs/pages/docs/state/data_example_8.dart';
 import 'package:docs/pages/docs/state/data_example_9.dart';
 import 'package:docs/pages/docs_page.dart';
 import 'package:docs/pages/widget_usage_example.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class StateManagementPage extends StatefulWidget {
   const StateManagementPage({super.key});
@@ -56,15 +56,15 @@ class _StateManagementPageState extends State<StateManagementPage> {
         children: [
           const SelectableText('State Management').h1(),
           const SelectableText(
-                  'A comprehensive guide to managing state in shadcn_flutter.')
+                  'A comprehensive guide to managing state in shade_ui.')
               .lead(),
           const SelectableText(
                   'In Flutter, everything is a widget, including where your data is stored.')
               .p(),
           const SelectableText(
-                  'Internally, shadcn_flutter has its own state management system. '
+                  'Internally, shade_ui has its own state management system. '
                   'Although if you are already using a state management system, '
-                  'you can continue to use it with shadcn_flutter.')
+                  'you can continue to use it with shade_ui.')
               .p(),
           const SelectableText('Passing Data to the Children')
               .h2()

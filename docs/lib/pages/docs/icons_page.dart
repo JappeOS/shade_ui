@@ -1,5 +1,5 @@
 import 'package:docs/radix_icons.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 import '../../bootstrap_icons.dart';
 import '../../lucide_icons.dart';

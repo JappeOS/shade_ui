@@ -1,6 +1,6 @@
 import 'package:flutter/rendering.dart';
 
-import '../../../shadcn_flutter.dart';
+import '../../../shade_ui.dart';
 
 abstract class TextModifier extends Widget {
   const TextModifier({super.key});

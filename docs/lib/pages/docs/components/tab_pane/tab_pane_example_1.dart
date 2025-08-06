@@ -1,4 +1,4 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class TabPaneExample1 extends StatefulWidget {
   const TabPaneExample1({super.key});

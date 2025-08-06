@@ -1,6 +1,6 @@
 import 'package:docs/pages/docs_page.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class IntroductionPage extends StatefulWidget {
@@ -34,7 +34,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                   'Beautifully designed components from Shadcn/UI is now available for Flutter.')
               .lead(),
           const Text(
-            'Welcome to shadcn_flutter, a versatile and comprehensive set '
+            'Welcome to shade_ui, a versatile and comprehensive set '
             'of UI components designed specifically for Flutter desktop and '
             'web applications. With the growing popularity of Flutter for '
             'building cross-platform apps, we recognized the need for a '
@@ -59,7 +59,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
             children: [
               const Text('84 components and growing!').li(),
               const Text(
-                      'Supports both Material and Cupertino Widgets with theme being able to adapt to the current shadcn_flutter theme.')
+                      'Supports both Material and Cupertino Widgets with theme being able to adapt to the current shade_ui theme.')
                   .li(),
               const Text('Pre-made themes from Shadcn/UI.').li(),
               const Text('Supports mobile, web, and desktop platforms.').li(),
@@ -84,7 +84,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                 trigger: AccordionTrigger(
                     child: Text('Does this support GoRouter?')),
                 content: Text(
-                    'Yes, it does. You can use GoRouter with shadcn_flutter. '),
+                    'Yes, it does. You can use GoRouter with shade_ui. '),
               ),
               const AccordionItem(
                 trigger: AccordionTrigger(
@@ -137,19 +137,19 @@ class _IntroductionPageState extends State<IntroductionPage> {
                   .thenButton(
                       onPressed: () {
                         launchUrlString(
-                            'https://github.com/sunarya-thito/shadcn_flutter');
+                            'https://github.com/sunarya-thito/shade_ui');
                       },
                       child: const Text(
-                          'https://github.com/sunarya-thito/shadcn_flutter'))
+                          'https://github.com/sunarya-thito/shade_ui'))
                   .li(),
               const Text('pub.dev: ')
                   .thenButton(
                       onPressed: () {
                         launchUrlString(
-                            'https://pub.dev/packages/shadcn_flutter');
+                            'https://pub.dev/packages/shade_ui');
                       },
                       child:
-                          const Text('https://pub.dev/packages/shadcn_flutter'))
+                          const Text('https://pub.dev/packages/shade_ui'))
                   .li(),
               const Text('Discord: ')
                   .thenButton(

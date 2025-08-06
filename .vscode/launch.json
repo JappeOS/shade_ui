@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "shadcn_flutter",
+            "name": "shade_ui",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "shadcn_flutter (profile mode)",
+            "name": "shade_ui (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "shadcn_flutter (release mode)",
+            "name": "shade_ui (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

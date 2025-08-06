@@ -25,13 +25,13 @@ main() async {
   builder += '  LucideIcons._();\n\n';
   for (String key in generalizedIcons.keys) {
     builder +=
-        '  static const IconData $key = IconData(${generalizedIcons[key]}, fontFamily: \'$fontFamily\', fontPackage: \'shadcn_flutter\');\n';
+        '  static const IconData $key = IconData(${generalizedIcons[key]}, fontFamily: \'$fontFamily\', fontPackage: \'shade_ui\');\n';
   }
   builder += '}\n';
   targetClass.writeAsStringSync(builder);
 
   String iconDocsClass =
-      'import \'package:shadcn_flutter/shadcn_flutter.dart\';\nconst Map<String, IconData> kLucideIcons = {\n';
+      'import \'package:shade_ui/shade_ui.dart\';\nconst Map<String, IconData> kLucideIcons = {\n';
   for (String key in generalizedIcons.keys) {
     iconDocsClass += '  \'$key\': LucideIcons.$key,\n';
   }

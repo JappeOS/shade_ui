@@ -1,5 +1,5 @@
 import 'package:docs/pages/docs_page.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class WebPreloaderPage extends StatelessWidget {
@@ -55,7 +55,7 @@ class WebPreloaderPage extends StatelessWidget {
                           Gap(8),
                           CodeSnippet(
                             code:
-                                '<script src="https://cdn.jsdelivr.net/gh/sunarya-thito/shadcn_flutter@latest/web_loaders/standard.js"></script>',
+                                '<script src="https://cdn.jsdelivr.net/gh/sunarya-thito/shade_ui@latest/web_loaders/standard.js"></script>',
                             mode: 'javascript',
                           ),
                         ]).li().p(),
@@ -77,7 +77,7 @@ class WebPreloaderPage extends StatelessWidget {
 <html>
   <head>
     ...
-    <script src="https://cdn.jsdelivr.net/gh/sunarya-thito/shadcn_flutter@latest/web_loaders/standard.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/sunarya-thito/shade_ui@latest/web_loaders/standard.js"></script>
     ...
   </head>
   ...
@@ -108,7 +108,7 @@ class WebPreloaderPage extends StatelessWidget {
                   .thenButton(
                       onPressed: () {
                         launchUrlString(
-                            'https://github.com/sunarya-thito/shadcn_flutter/tree/master/web_loaders');
+                            'https://github.com/sunarya-thito/shade_ui/tree/master/web_loaders');
                       },
                       child: const Text('web_loaders'))
                   .thenText(' directory.')

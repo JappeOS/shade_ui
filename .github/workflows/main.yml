@@ -22,7 +22,7 @@ jobs:
       working-directory: './docs'
 
     - name: Build Release Version
-      run: "flutter build web --wasm --base-href \"/shadcn_flutter/\""
+      run: "flutter build web --wasm --base-href \"/shade_ui/\""
       continue-on-error: true
       working-directory: './docs'
 

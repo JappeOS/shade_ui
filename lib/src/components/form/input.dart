@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart' show Clipboard, LogicalKeyboardKey;
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 enum InputFeaturePosition {
   leading,

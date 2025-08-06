@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/scheduler.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 /// Size constraint for the carousel.
 abstract class CarouselSizeConstraint {

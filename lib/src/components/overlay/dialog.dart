@@ -1,4 +1,4 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class ModalBackdrop extends StatelessWidget {
   static bool shouldClipSurface(double? surfaceOpacity) {
@@ -393,7 +393,7 @@ class _DialogOverlayWrapperState<T> extends State<_DialogOverlayWrapper<T>>
 
 class DialogOverlayHandler extends OverlayHandler {
   static bool isDialogOverlay(BuildContext context) {
-    return Model.maybeOf<bool>(context, #shadcn_flutter_dialog_overlay) == true;
+    return Model.maybeOf<bool>(context, #shade_ui_dialog_overlay) == true;
   }
 
   const DialogOverlayHandler();
@@ -448,7 +448,7 @@ class DialogOverlayHandler extends OverlayHandler {
         if (overlayBarrier != null) {
           return MultiModel(
             data: const [
-              Model(#shadcn_flutter_dialog_overlay, true),
+              Model(#shade_ui_dialog_overlay, true),
             ],
             child: ModalBackdrop(
               modal: modal,
@@ -463,7 +463,7 @@ class DialogOverlayHandler extends OverlayHandler {
         }
         return MultiModel(
           data: const [
-            Model(#shadcn_flutter_dialog_overlay, true),
+            Model(#shade_ui_dialog_overlay, true),
           ],
           child: child,
         );
@@ -499,7 +499,7 @@ class DialogOverlayHandler extends OverlayHandler {
 
 class FullScreenDialogOverlayHandler extends OverlayHandler {
   static bool isDialogOverlay(BuildContext context) {
-    return Model.maybeOf<bool>(context, #shadcn_flutter_dialog_overlay) == true;
+    return Model.maybeOf<bool>(context, #shade_ui_dialog_overlay) == true;
   }
 
   const FullScreenDialogOverlayHandler();
@@ -555,7 +555,7 @@ class FullScreenDialogOverlayHandler extends OverlayHandler {
         if (overlayBarrier != null) {
           return MultiModel(
             data: const [
-              Model(#shadcn_flutter_dialog_overlay, true),
+              Model(#shade_ui_dialog_overlay, true),
             ],
             child: ModalBackdrop(
               modal: modal,
@@ -570,7 +570,7 @@ class FullScreenDialogOverlayHandler extends OverlayHandler {
         }
         return MultiModel(
           data: const [
-            Model(#shadcn_flutter_dialog_overlay, true),
+            Model(#shade_ui_dialog_overlay, true),
           ],
           child: child,
         );

@@ -4,7 +4,7 @@ import 'package:email_validator/email_validator.dart' as email_validator;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart' as widgets;
 
-import '../../../shadcn_flutter.dart';
+import '../../../shade_ui.dart';
 
 abstract class Validator<T> {
   const Validator();

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -474,14 +474,14 @@ class DocsPageState extends State<DocsPage> {
                     child: Text(getReleaseTagName()),
                     onPressed: (context) {
                       launchUrlString(
-                          'https://sunarya-thito.github.io/shadcn_flutter/');
+                          'https://sunarya-thito.github.io/shade_ui/');
                     },
                   ),
                   MenuButton(
                     child: const Text('Experimental'),
                     onPressed: (context) {
                       launchUrlString(
-                          'https://sunarya-thito.github.io/shadcn_flutter/experimental/');
+                          'https://sunarya-thito.github.io/shade_ui/experimental/');
                     },
                   ),
                 ],
@@ -556,7 +556,7 @@ class DocsPageState extends State<DocsPage> {
                                 density: ButtonDensity.icon,
                                 onPressed: () {
                                   openInNewTab(
-                                      'https://github.com/sunarya-thito/shadcn_flutter');
+                                      'https://github.com/sunarya-thito/shade_ui');
                                 },
                                 child: FaIcon(
                                   FontAwesomeIcons.github,
@@ -568,7 +568,7 @@ class DocsPageState extends State<DocsPage> {
                                   density: ButtonDensity.icon,
                                   onPressed: () {
                                     openInNewTab(
-                                        'https://pub.dev/packages/shadcn_flutter');
+                                        'https://pub.dev/packages/shade_ui');
                                   },
                                   child: ColorFiltered(
                                     // turns into white
@@ -781,7 +781,7 @@ class DocsPageState extends State<DocsPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
-              'shadcn_flutter',
+              'shade_ui',
             ).textLarge().mono(),
             Gap(16 * theme.scaling),
             buildFlavorTag(),
@@ -807,7 +807,7 @@ class DocsPageState extends State<DocsPage> {
         GhostButton(
           density: ButtonDensity.icon,
           onPressed: () {
-            openInNewTab('https://github.com/sunarya-thito/shadcn_flutter');
+            openInNewTab('https://github.com/sunarya-thito/shade_ui');
           },
           child: FaIcon(FontAwesomeIcons.github,
                   color: theme.colorScheme.secondaryForeground)
@@ -817,7 +817,7 @@ class DocsPageState extends State<DocsPage> {
         GhostButton(
             density: ButtonDensity.icon,
             onPressed: () {
-              openInNewTab('https://pub.dev/packages/shadcn_flutter');
+              openInNewTab('https://pub.dev/packages/shade_ui');
             },
             child: ColorFiltered(
               // turns into white
@@ -854,7 +854,7 @@ class DocsPageState extends State<DocsPage> {
                   ),
                   Gap(18 * scaling),
                   const Text(
-                    'shadcn_flutter',
+                    'shade_ui',
                   ).medium().mono(),
                   Gap(12 * scaling),
                   buildFlavorTag(),

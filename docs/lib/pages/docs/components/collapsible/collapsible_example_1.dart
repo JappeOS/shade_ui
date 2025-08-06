@@ -1,4 +1,4 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class CollapsibleExample1 extends StatelessWidget {
   const CollapsibleExample1({super.key});
@@ -11,7 +11,7 @@ class CollapsibleExample1 extends StatelessWidget {
           child: Text('@sunarya-thito starred 3 repositories'),
         ),
         OutlinedContainer(
-          child: const Text('@sunarya-thito/shadcn_flutter')
+          child: const Text('@sunarya-thito/shade_ui')
               .small()
               .mono()
               .withPadding(horizontal: 16, vertical: 8),

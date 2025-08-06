@@ -392,7 +392,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.28.0"
-  shadcn_flutter:
+  shade_ui:
     dependency: "direct main"
     description:
       path: ".."

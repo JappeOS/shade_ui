@@ -1,4 +1,4 @@
-import '../../../../shadcn_flutter.dart';
+import '../../../../shade_ui.dart';
 
 class TabContainerData {
   static TabContainerData of(BuildContext context) {

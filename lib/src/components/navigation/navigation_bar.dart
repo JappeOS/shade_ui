@@ -1,5 +1,5 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:shadcn_flutter/src/components/layout/hidden.dart';
+import 'package:shade_ui/shade_ui.dart';
+import 'package:shade_ui/src/components/layout/hidden.dart';
 
 enum NavigationBarAlignment {
   start(MainAxisAlignment.start),

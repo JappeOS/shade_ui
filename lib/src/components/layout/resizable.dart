@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:shadcn_flutter/src/resizer.dart';
+import 'package:shade_ui/shade_ui.dart';
+import 'package:shade_ui/src/resizer.dart';
 
 /// A Horizontal dragger that can be used as a divider between resizable panes.
 class HorizontalResizableDragger extends StatelessWidget {

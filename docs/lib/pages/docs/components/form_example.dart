@@ -1,6 +1,6 @@
 import 'package:docs/pages/docs/component_page.dart';
 import 'package:docs/pages/docs/components/form/form_example_3.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 import '../../widget_usage_example.dart';
 import 'form/form_example_1.dart';

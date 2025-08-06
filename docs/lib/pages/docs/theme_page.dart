@@ -1,5 +1,5 @@
 import 'package:docs/main.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 import '../docs_page.dart';
 
@@ -161,7 +161,7 @@ class _ThemePageState extends State<ThemePage> {
             children: [
               Expanded(
                   child: Text(
-                      'You can customize the scale of shadcn_flutter components by changing the scaling.')),
+                      'You can customize the scale of shade_ui components by changing the scaling.')),
             ],
           ).p(),
           Slider(
@@ -182,7 +182,7 @@ class _ThemePageState extends State<ThemePage> {
           const Alert(
             leading: Icon(RadixIcons.infoCircled),
             content: Text(
-                'This does not scale the entire app. Only shadcn_flutter components are affected.'),
+                'This does not scale the entire app. Only shade_ui components are affected.'),
           ),
           const Text('Surface opacity').h2().anchored(surfaceOpacityKey),
           const Row(

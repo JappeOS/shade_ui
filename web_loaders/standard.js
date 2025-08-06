@@ -17,7 +17,7 @@ const loaderWidget = `
 </div>
 `;
 
-const shadcn_flutter_config = {
+const shade_ui_config = {
     loaderWidget: loaderWidget,
     backgroundColor: null,
     foregroundColor: null,
@@ -66,13 +66,13 @@ class ShadcnAppConfig {
         this.externalScripts = externalScripts;
 
         if (this.backgroundColor == null) {
-            this.backgroundColor = localStorage.getItem('shadcn_flutter.background') || '#09090b';
+            this.backgroundColor = localStorage.getItem('shade_ui.background') || '#09090b';
         }
         if (this.foregroundColor == null) {
-            this.foregroundColor = localStorage.getItem('shadcn_flutter.foreground') || '#ffffff';
+            this.foregroundColor = localStorage.getItem('shade_ui.foreground') || '#ffffff';
         }
         if (this.loaderColor == null) {
-            this.loaderColor = localStorage.getItem('shadcn_flutter.primary') || '#3c83f6';
+            this.loaderColor = localStorage.getItem('shade_ui.primary') || '#3c83f6';
         }
 
         this.transitionDuration = transitionDuration || 0;
@@ -81,7 +81,7 @@ class ShadcnAppConfig {
 
 class ShadcnAppThemeChangedEvent extends CustomEvent {
     constructor(theme) {
-        super('shadcn_flutter_theme_changed', { detail: theme });
+        super('shade_ui_theme_changed', { detail: theme });
     }
 }
 
@@ -107,8 +107,8 @@ class ShadcnApp {
     loadApp() {
         this.#initializeDocument();
         this.#loadExternalScripts(0);
-        window.addEventListener('shadcn_flutter_app_ready', () => this.onAppReady());
-        window.addEventListener('shadcn_flutter_theme_changed', (event) => this.onThemeChanged(event));
+        window.addEventListener('shade_ui_app_ready', () => this.onAppReady());
+        window.addEventListener('shade_ui_theme_changed', (event) => this.onThemeChanged(event));
         if (globalThis.shadcnAppLoaded) {
             this.onAppReady();
         }
@@ -237,9 +237,9 @@ class ShadcnApp {
         let background = theme['background'];
         let foreground = theme['foreground'];
         let primary = theme['primary'];
-        localStorage.setItem('shadcn_flutter.background', background);
-        localStorage.setItem('shadcn_flutter.foreground', foreground);
-        localStorage.setItem('shadcn_flutter.primary', primary);
+        localStorage.setItem('shade_ui.background', background);
+        localStorage.setItem('shade_ui.foreground', foreground);
+        localStorage.setItem('shade_ui.primary', primary);
     }
 }
 
@@ -248,7 +248,7 @@ globalThis.ShadcnAppConfig = ShadcnAppConfig;
 globalThis.ShadcnAppThemeChangedEvent = ShadcnAppThemeChangedEvent;
 globalThis.ShadcnAppTheme = ShadcnAppTheme;
 
-const shadcn_flutter = new ShadcnApp(new ShadcnAppConfig(shadcn_flutter_config));
+const shade_ui = new ShadcnApp(new ShadcnAppConfig(shade_ui_config));
 document.addEventListener('DOMContentLoaded', () => {
-    shadcn_flutter.loadApp();
+    shade_ui.loadApp();
 });

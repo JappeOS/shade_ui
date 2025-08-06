@@ -1,4 +1,4 @@
-import '../../shadcn_flutter.dart';
+import '../../shade_ui.dart';
 
 class Typography {
   final TextStyle sans;
@@ -40,9 +40,9 @@ class Typography {
 
   const Typography.geist({
     this.sans =
-        const TextStyle(fontFamily: 'GeistSans', package: 'shadcn_flutter'),
+        const TextStyle(fontFamily: 'GeistSans', package: 'shade_ui'),
     this.mono =
-        const TextStyle(fontFamily: 'GeistMono', package: 'shadcn_flutter'),
+        const TextStyle(fontFamily: 'GeistMono', package: 'shade_ui'),
     this.xSmall = const TextStyle(fontSize: 12),
     this.small = const TextStyle(fontSize: 14),
     this.base = const TextStyle(fontSize: 16),

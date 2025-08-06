@@ -1,6 +1,6 @@
 import 'package:flutter/rendering.dart';
 
-import '../../../shadcn_flutter.dart';
+import '../../../shade_ui.dart';
 
 typedef SortableItemBuilder<T> = T Function(BuildContext context, int index);
 typedef SortableWidgetBuilder<T> = Widget Function(
@@ -61,7 +61,7 @@ class RawSortableList<T> extends StatelessWidget {
   final SortableWidgetBuilder<T> builder;
   final ValueChanged<ListChanges<T>>? onChanged;
   final bool enabled;
-  const RawSortableList({super.key, 
+  const RawSortableList({super.key,
     required this.delegate,
     required this.builder,
     this.onChanged,

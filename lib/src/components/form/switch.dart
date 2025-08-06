@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
-import 'package:shadcn_flutter/src/components/layout/focus_outline.dart';
+import 'package:shade_ui/src/components/layout/focus_outline.dart';
 
-import '../../../shadcn_flutter.dart';
+import '../../../shade_ui.dart';
 
 const kSwitchDuration = Duration(milliseconds: 100);
 

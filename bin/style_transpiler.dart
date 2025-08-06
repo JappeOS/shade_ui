@@ -29,7 +29,7 @@ Map<String, String> paramMapping = {
 
 main() {
   String result = '';
-  result += 'import \'../../shadcn_flutter.dart\';\n';
+  result += 'import \'../../shade_ui.dart\';\n';
   result += 'import \'dart:ui\';\n';
   result += 'void _assertNotThemeModeSystem(ThemeMode mode, String label) {\n';
   // throw FlutterError with hint to use

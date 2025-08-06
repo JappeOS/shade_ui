@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 typedef FutureOrWidgetBuilder<T> = Widget Function(
     BuildContext context, AsyncSnapshot<T> snapshot);

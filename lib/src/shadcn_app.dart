@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart' as c;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as m;
 import 'package:flutter/services.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 import 'platform_interface.dart'
     if (dart.library.js_interop) 'platform/platform_implementations_web.dart';

@@ -1,6 +1,6 @@
 import 'dart:js_interop';
 
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 @JS("Window")
 extension type _Window(JSObject _) implements JSObject {
@@ -45,7 +45,7 @@ class ShadcnFlutterPlatformImplementations {
       return;
     }
     _window.shadcnAppLoaded = true;
-    final event = _Event("shadcn_flutter_app_ready");
+    final event = _Event("shade_ui_app_ready");
     _window.dispatchEvent(event);
   }
 

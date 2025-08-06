@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../../shadcn_flutter.dart';
+import '../../../shade_ui.dart';
 import '../../resizer.dart';
 
 class TableTheme {
@@ -354,7 +354,7 @@ class ResizableTable extends StatefulWidget {
   final double? verticalOffset;
   final Size? viewportSize;
 
-  const ResizableTable({super.key, 
+  const ResizableTable({super.key,
     required this.rows,
     required this.controller,
     this.theme,
@@ -1347,7 +1347,7 @@ class Table extends StatefulWidget {
   final double? horizontalOffset;
   final double? verticalOffset;
   final Size? viewportSize;
-  const Table({super.key, 
+  const Table({super.key,
     required this.rows,
     this.defaultColumnWidth = const FlexTableSize(),
     this.defaultRowHeight = const IntrinsicTableSize(),

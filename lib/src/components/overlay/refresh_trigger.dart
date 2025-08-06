@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/rendering.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 typedef RefreshIndicatorBuilder = Widget Function(
     BuildContext context, RefreshTriggerStage stage);

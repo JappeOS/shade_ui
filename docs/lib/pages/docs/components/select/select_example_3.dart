@@ -1,4 +1,4 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class SelectExample3 extends StatefulWidget {
   const SelectExample3({super.key});

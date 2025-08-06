@@ -1,7 +1,7 @@
 import 'package:docs/pages/docs/component_page.dart';
 import 'package:docs/pages/docs/components/multiselect/multiselect_example_1.dart';
 import 'package:docs/pages/widget_usage_example.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 import 'multiselect/multiselect_example_2.dart';
 import 'multiselect/multiselect_example_3.dart';

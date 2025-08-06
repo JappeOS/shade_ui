@@ -1,5 +1,5 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:shadcn_flutter/src/components/display/fade_scroll.dart';
+import 'package:shade_ui/shade_ui.dart';
+import 'package:shade_ui/src/components/display/fade_scroll.dart';
 
 class TabPaneData<T> extends SortableData<T> {
   const TabPaneData(super.data);
@@ -21,7 +21,7 @@ class TabPane<T> extends StatefulWidget {
   final BorderSide? border;
   final Widget child;
   final double? barHeight;
-  const TabPane({super.key, 
+  const TabPane({super.key,
     // required this.children,
     required this.items,
     required this.itemBuilder,

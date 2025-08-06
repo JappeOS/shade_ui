@@ -1,4 +1,4 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../docs_page.dart';
@@ -25,7 +25,7 @@ class _InstallationPageState extends State<InstallationPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text('Installation').h1(),
-          const Text('Install and configure shadcn_flutter in your project.')
+          const Text('Install and configure shade_ui in your project.')
               .lead(),
           const Text('Stable Version').h2().anchored(_manualKey),
           const Gap(32),
@@ -47,10 +47,10 @@ class _InstallationPageState extends State<InstallationPage> {
                 title: const Text('Adding the dependency'),
                 content: [
                   const Text(
-                          'Next, add the shadcn_flutter dependency to your project.')
+                          'Next, add the shade_ui dependency to your project.')
                       .p(),
                   const CodeSnippet(
-                    code: 'flutter pub add shadcn_flutter',
+                    code: 'flutter pub add shade_ui',
                     mode: 'shell',
                   ).p(),
                 ],
@@ -63,7 +63,7 @@ class _InstallationPageState extends State<InstallationPage> {
                       .p(),
                   const CodeSnippet(
                     code:
-                        'import \'package:shadcn_flutter/shadcn_flutter.dart\';',
+                        'import \'package:shade_ui/shade_ui.dart\';',
                     mode: 'dart',
                   ).p(),
                 ],
@@ -111,13 +111,13 @@ void main() {
                   'pubspec.yaml file:')
               .p(),
           const CodeSnippet(
-            // code: 'shadcn_flutter:\n'
+            // code: 'shade_ui:\n'
             //     '  git:\n'
-            //     '    url: "https://github.com/sunarya-thito/shadcn_flutter.git"',
+            //     '    url: "https://github.com/sunarya-thito/shade_ui.git"',
             code: 'dependencies:\n'
-                '  shadcn_flutter:\n'
+                '  shade_ui:\n'
                 '    git:\n'
-                '      url: "https://github.com/sunarya-thito/shadcn_flutter.git"',
+                '      url: "https://github.com/sunarya-thito/shade_ui.git"',
             mode: 'yaml',
           ).p(),
           const Text('See ')

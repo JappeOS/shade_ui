@@ -21,7 +21,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import 'components/form/form_example_1.dart';
@@ -252,7 +252,7 @@ class _ComponentsPageState extends State<ComponentsPage> {
                           child: Text('@sunarya-thito starred 3 repositories'),
                         ),
                         OutlinedContainer(
-                          child: const Text('@sunarya-thito/shadcn_flutter')
+                          child: const Text('@sunarya-thito/shade_ui')
                               .small()
                               .mono()
                               .withPadding(horizontal: 16, vertical: 8),
@@ -277,7 +277,7 @@ class _ComponentsPageState extends State<ComponentsPage> {
                           child: Text('@flutter starred 1 repository'),
                         ).withPadding(top: 16),
                         OutlinedContainer(
-                          child: const Text('@sunarya-thito/shadcn_flutter')
+                          child: const Text('@sunarya-thito/shade_ui')
                               .small()
                               .mono()
                               .withPadding(horizontal: 16, vertical: 8),

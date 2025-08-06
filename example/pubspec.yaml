@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  shadcn_flutter:
+  shade_ui:
     path: ../
 
   # The following adds the Cupertino Icons font to your application.

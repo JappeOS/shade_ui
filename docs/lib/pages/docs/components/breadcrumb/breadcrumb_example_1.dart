@@ -1,4 +1,4 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class BreadcrumbExample1 extends StatelessWidget {
   const BreadcrumbExample1({super.key});

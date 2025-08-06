@@ -1,4 +1,4 @@
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class StepsExample1 extends StatelessWidget {
   const StepsExample1({super.key});

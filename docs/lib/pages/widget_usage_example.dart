@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class WidgetUsageExample extends StatefulWidget {
@@ -97,9 +97,9 @@ class _CodeSnippetFutureBuilderState extends State<CodeSnippetFutureBuilder> {
   late Future<String> futureCode;
 
   void _refresh() {
-    //https://raw.githubusercontent.com/sunarya-thito/shadcn_flutter/master/docs/lib/pages/docs/layout_page/layout_page_example_1.dart
+    //https://raw.githubusercontent.com/sunarya-thito/shade_ui/master/docs/lib/pages/docs/layout_page/layout_page_example_1.dart
     String url =
-        'https://raw.githubusercontent.com/sunarya-thito/shadcn_flutter/master/docs/${widget.path}';
+        'https://raw.githubusercontent.com/sunarya-thito/shade_ui/master/docs/${widget.path}';
     futureCode =
         http.get(Uri.parse(url)).then((response) => response.body).then((code) {
       try {
@@ -162,7 +162,7 @@ class _CodeSnippetFutureBuilderState extends State<CodeSnippetFutureBuilder> {
                   onPressed: () {
                     // open in new tab
                     String url =
-                        'https://github.com/sunarya-thito/shadcn_flutter/blob/master/docs/${widget.path}';
+                        'https://github.com/sunarya-thito/shade_ui/blob/master/docs/${widget.path}';
                     // html.window.open(url, 'blank');
                     launchUrlString(url);
                   },
@@ -182,9 +182,9 @@ class _CodeSnippetFutureBuilderState extends State<CodeSnippetFutureBuilder> {
                 density: ButtonDensity.icon,
                 onPressed: () {
                   // open in new tab
-                  //https://github.com/sunarya-thito/shadcn_flutter/blob/master/docs/lib/pages/docs/layout_page/layout_page_example_1.dart
+                  //https://github.com/sunarya-thito/shade_ui/blob/master/docs/lib/pages/docs/layout_page/layout_page_example_1.dart
                   String url =
-                      'https://github.com/sunarya-thito/shadcn_flutter/blob/master/docs/${widget.path}';
+                      'https://github.com/sunarya-thito/shade_ui/blob/master/docs/${widget.path}';
                   // html.window.open(url, 'blank');
                   launchUrlString(url);
                 },

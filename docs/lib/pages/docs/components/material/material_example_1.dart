@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcnui;
+import 'package:shade_ui/shade_ui.dart' as shadcnui;
 
 class MaterialExample1 extends StatefulWidget {
   const MaterialExample1({super.key});
@@ -47,7 +47,7 @@ class _MaterialExample1State extends State<MaterialExample1> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                      'You can also use shadcn_flutter widgets inside Material widgets'),
+                      'You can also use shade_ui widgets inside Material widgets'),
                   const shadcnui.Gap(16),
                   shadcnui.PrimaryButton(
                     onPressed: () {
@@ -80,7 +80,7 @@ class _MaterialExample1State extends State<MaterialExample1> {
                           return shadcnui.AlertDialog(
                             title: const Text('Hello'),
                             content:
-                                const Text('This is shadcn_flutter dialog'),
+                                const Text('This is shade_ui dialog'),
                             actions: [
                               shadcnui.PrimaryButton(
                                 onPressed: () {
@@ -93,7 +93,7 @@ class _MaterialExample1State extends State<MaterialExample1> {
                         },
                       );
                     },
-                    child: const Text('Open shadcn_flutter Dialog'),
+                    child: const Text('Open shade_ui Dialog'),
                   ),
                 ],
               ),

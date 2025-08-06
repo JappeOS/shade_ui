@@ -1,7 +1,7 @@
 import 'dart:io';
 
 main() {
-  String result = "import 'package:shadcn_flutter/shadcn_flutter.dart';\n"
+  String result = "import 'package:shade_ui/shade_ui.dart';\n"
       "\n"
       "class Colors {\n";
   List<String> primaryNames = [];
