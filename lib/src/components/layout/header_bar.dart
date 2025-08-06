@@ -49,10 +49,10 @@ class HeaderBar extends StatefulWidget implements PreferredSizeWidget {
   final FutureOr<void> Function(BuildContext)? onClose;
 
   /// Called when the title bar dragging begins.
-  final FutureOr<void> Function(BuildContext)? onDragStart;
+  final FutureOr<void> Function(BuildContext, DragDownDetails)? onDragStart;
 
   /// Called when the title bar dragging ends.
-  final FutureOr<void> Function(BuildContext)? onDragEnd;
+  final FutureOr<void> Function(BuildContext, DragEndDetails)? onDragEnd;
 
   /// Called when the title bar is dragged to move the window.
   final FutureOr<void> Function(BuildContext, DragUpdateDetails)? onDrag;
@@ -209,8 +209,8 @@ class _HeaderBarState extends State<HeaderBar> {
             PanGestureRecognizer.new,
             (instance) => instance
               ..gestureSettings = gestureSettings
-              ..onDown = ((_) => widget.onDragStart?.call(context))
-              ..onEnd = ((_) => widget.onDragEnd?.call(context))
+              ..onDown = ((p0) => widget.onDragStart?.call(context, p0))
+              ..onEnd = ((p0) => widget.onDragEnd?.call(context, p0))
               ..onUpdate = ((p0) => widget.onDrag?.call(context, p0)),
           ),
           _PassiveTapGestureRecognizer: GestureRecognizerFactoryWithHandlers<_PassiveTapGestureRecognizer>(
@@ -347,8 +347,8 @@ class _PassiveTapGestureRecognizer extends TapGestureRecognizer {
   }
 }
 
-class ShadeWindowHeaderBar extends StatelessWidget implements PreferredSizeWidget {
-  const ShadeWindowHeaderBar({
+class WindowHeaderBar extends StatelessWidget implements PreferredSizeWidget {
+  const WindowHeaderBar({
     super.key,
     this.leading,
     this.title,
