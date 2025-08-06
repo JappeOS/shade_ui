@@ -572,6 +572,9 @@ class ColorScheme implements ChartColorScheme {
   @override
   List<Color> get chartColors => [chart1, chart2, chart3, chart4, chart5];
 
+  bool get isDark => brightness == Brightness.dark;
+  bool get isLight => brightness == Brightness.light;
+
   static ColorScheme lerp(ColorScheme a, ColorScheme b, double t) {
     return ColorScheme(
       brightness: t < 0.5 ? a.brightness : b.brightness,
