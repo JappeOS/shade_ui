@@ -1,5 +1,5 @@
-name: shadcn_flutter
-description: "Beautifully designed components from Shadcn/UI is now available for Flutter"
+name: shade_ui
+description: "Beautifully designed components from Shadcn/UI is now available for Flutter and JappeOS"
 version: 0.0.37
 homepage: "https://github.com/sunarya-thito/shadcn_flutter"
 documentation: "https://sunarya-thito.github.io/shadcn_flutter/"
