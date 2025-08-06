@@ -5,6 +5,11 @@
 ![GitHub Sponsors](https://img.shields.io/github/sponsors/sunarya-thito)
 ![GitHub Repo stars](https://img.shields.io/github/stars/sunarya-thito/shadcn_flutter)
 
+> [!IMPORTANT]  
+> This project is a fork of [shadcn_flutter](https://github.com/sunarya-thito/shadcn_flutter), originally developed under the BSD 3-Clause License.
+>
+> This fork is adapted for JappeOS.
+
 A set of widgets and utilities for building applications in flutter.
 This is a port of the shadcn UI package to flutter.
 
