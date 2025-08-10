@@ -212,6 +212,7 @@ class _DualBorderOutlinedContainerState extends State<DualBorderOutlinedContaine
         decoration: BoxDecoration(
           color: backgroundColor,
           boxShadow: widget.boxShadow,
+          borderRadius: borderRadius,
         ),
         foregroundDecoration: BoxDecoration(
           border: Border.all(
