@@ -1,47 +1,109 @@
+import 'package:flutter/services.dart';
+
 import '../../../shade_ui.dart';
+import 'package:shade_ui/src/components/layout/focus_outline.dart';
+
+/// Theme data for [Radio].
+class RadioTheme {
+  final Color? activeColor;
+  final Color? borderColor;
+  final Color? backgroundColor;
+  final double? size;
+
+  const RadioTheme(
+      {this.activeColor, this.borderColor, this.size, this.backgroundColor});
+
+  RadioTheme copyWith({
+    ValueGetter<Color?>? activeColor,
+    ValueGetter<Color?>? borderColor,
+    ValueGetter<double?>? size,
+    ValueGetter<Color?>? backgroundColor,
+  }) {
+    return RadioTheme(
+      activeColor: activeColor == null ? this.activeColor : activeColor(),
+      borderColor: borderColor == null ? this.borderColor : borderColor(),
+      size: size == null ? this.size : size(),
+      backgroundColor:
+          backgroundColor == null ? this.backgroundColor : backgroundColor(),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is RadioTheme &&
+        other.activeColor == activeColor &&
+        other.borderColor == borderColor &&
+        other.size == size &&
+        other.backgroundColor == backgroundColor;
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(activeColor, borderColor, size, backgroundColor);
+}
 
 class Radio extends StatelessWidget {
   final bool value;
   final bool focusing;
+  final double? size;
+  final Color? activeColor;
+  final Color? borderColor;
+  final Color? backgroundColor;
 
   const Radio({
     super.key,
     required this.value,
     this.focusing = false,
+    this.size,
+    this.activeColor,
+    this.borderColor,
+    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    return AnimatedContainer(
-      duration: kDefaultDuration,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-            color: focusing
-                ? theme.colorScheme.ring
-                : theme.colorScheme.ring.withValues(alpha: 0)),
-      ),
+    final theme = Theme.of(context);
+    final compTheme = ComponentTheme.maybeOf<RadioTheme>(context);
+    final size = styleValue<double>(
+        widgetValue: this.size,
+        themeValue: compTheme?.size,
+        defaultValue: 16 * theme.scaling);
+    final activeColor = styleValue<Color>(
+        widgetValue: this.activeColor,
+        themeValue: compTheme?.activeColor,
+        defaultValue: theme.colorScheme.primary);
+    final borderColor = styleValue<Color>(
+        widgetValue: this.borderColor,
+        themeValue: compTheme?.borderColor,
+        defaultValue: theme.colorScheme.input);
+    final backgroundColor = styleValue<Color>(
+        widgetValue: this.backgroundColor,
+        themeValue: compTheme?.backgroundColor,
+        defaultValue: theme.colorScheme.input.scaleAlpha(0.3));
+    final innerSize = value ? (size - (6 + 2) * theme.scaling) : 0.0;
+    return FocusOutline(
+      focused: focusing,
+      shape: BoxShape.circle,
       child: AnimatedContainer(
         duration: kDefaultDuration,
-        width: 16 * theme.scaling,
-        height: 16 * theme.scaling,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
+          color: backgroundColor,
           border: Border.all(
-            color: theme.colorScheme.primary,
+            color: borderColor,
           ),
         ),
         child: Center(
           child: AnimatedContainer(
             duration: kDefaultDuration,
-            // -6 is the padding of the radio
-            // -2 is the border width of the radio (1 each side)
-            width: value ? (16 - 6 - 2) * theme.scaling : 0,
-            height: value ? (16 - 6 - 2) * theme.scaling : 0,
+            width: innerSize,
+            height: innerSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: theme.colorScheme.primary,
+              color: activeColor,
             ),
           ),
         ),
@@ -102,7 +164,7 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final groupData = Data.maybeOf<RadioGroupData<T>>(context);
-    final group = Data.maybeOf<_RadioGroupState<T>>(context);
+    final group = Data.maybeOf<RadioGroupState<T>>(context);
     assert(groupData != null,
         'RadioItem<$T> must be a descendant of RadioGroup<$T>');
     return GestureDetector(
@@ -125,6 +187,24 @@ class _RadioItemState<T> extends State<RadioItem<T>> {
               _focusing = value;
             });
           }
+        },
+        actions: {
+          NextItemIntent: CallbackAction<NextItemIntent>(
+            onInvoke: (intent) {
+              if (group != null) {
+                group._setSelected(widget.value);
+              }
+              return null;
+            },
+          ),
+          PreviousItemIntent: CallbackAction<PreviousItemIntent>(
+            onInvoke: (intent) {
+              if (group != null) {
+                group._setSelected(widget.value);
+              }
+              return null;
+            },
+          ),
         },
         child: Data<RadioGroupData<T>>.boundary(
           child: Data<_RadioItemState<T>>.boundary(
@@ -312,7 +392,7 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
     final theme = Theme.of(context);
     final componentTheme = ComponentTheme.maybeOf<RadioCardTheme>(context);
     final groupData = Data.maybeOf<RadioGroupData<T>>(context);
-    final group = Data.maybeOf<_RadioGroupState<T>>(context);
+    final group = Data.maybeOf<RadioGroupState<T>>(context);
     assert(groupData != null,
         'RadioCard<$T> must be a descendant of RadioGroup<$T>');
     return GestureDetector(
@@ -323,6 +403,24 @@ class _RadioCardState<T> extends State<RadioCard<T>> {
           : null,
       child: FocusableActionDetector(
         focusNode: _focusNode,
+        actions: {
+          NextItemIntent: CallbackAction<NextItemIntent>(
+            onInvoke: (intent) {
+              if (group != null) {
+                group._setSelected(widget.value);
+              }
+              return null;
+            },
+          ),
+          PreviousItemIntent: CallbackAction<PreviousItemIntent>(
+            onInvoke: (intent) {
+              if (group != null) {
+                group._setSelected(widget.value);
+              }
+              return null;
+            },
+          ),
+        },
         mouseCursor: widget.enabled && groupData?.enabled == true
             ? styleValue(
                 defaultValue: SystemMouseCursors.click,
@@ -478,7 +576,7 @@ class RadioGroup<T> extends StatefulWidget {
   });
 
   @override
-  _RadioGroupState<T> createState() => _RadioGroupState<T>();
+  RadioGroupState<T> createState() => RadioGroupState<T>();
 }
 
 class RadioGroupData<T> {
@@ -499,7 +597,7 @@ class RadioGroupData<T> {
   int get hashCode => Object.hash(selectedItem, enabled);
 }
 
-class _RadioGroupState<T> extends State<RadioGroup<T>>
+class RadioGroupState<T> extends State<RadioGroup<T>>
     with FormValueSupplier<T, RadioGroup<T>> {
   bool get enabled => widget.enabled ?? widget.onChanged != null;
   void _setSelected(T value) {

@@ -2,7 +2,38 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+
 import 'package:shade_ui/shade_ui.dart';
+import 'package:shade_ui/src/components/layout/focus_outline.dart';
+
+class FormattedInputTheme {
+  final double? height;
+  final EdgeInsetsGeometry? padding;
+
+  const FormattedInputTheme({this.height, this.padding});
+
+  FormattedInputTheme copyWith({
+    ValueGetter<double?>? height,
+    ValueGetter<EdgeInsetsGeometry?>? padding,
+  }) {
+    return FormattedInputTheme(
+      height: height == null ? this.height : height(),
+      padding: padding == null ? this.padding : padding(),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is FormattedInputTheme &&
+        other.height == height &&
+        other.padding == padding;
+  }
+
+  @override
+  int get hashCode => Object.hash(height, padding);
+}
+>>>>>>> upstream/master
 
 abstract class InputPart implements FormattedValuePart {
   const factory InputPart.static(String text) = StaticPart;
@@ -327,25 +358,32 @@ class _EditablePartWidgetState extends State<_EditablePartWidget> {
     return Focus(
       onKeyEvent: _onKeyEvent,
       child: FormEntry(
-        key: FormKey(data.partIndex),
+        key: TextFieldKey(data.partIndex),
         child: SizedBox(
           width: widget.width,
-          child: TextField(
-            focusNode: data.focusNode,
-            controller: _controller,
-            maxLength: widget.length,
-            onChanged: _onChanged,
-            style:
-                DefaultTextStyle.of(context).style.merge(theme.typography.mono),
-            border: false,
-            textAlign: TextAlign.center,
-            initialValue: data.initialValue,
-            maxLines: 1,
-            obscureText: widget.obscureText,
-            inputFormatters: widget.inputFormatters,
-            placeholder: widget.placeholder,
-            padding: EdgeInsets.symmetric(
-              horizontal: 6 * theme.scaling,
+          child: ComponentTheme(
+            data: const FocusOutlineTheme(
+              border: Border.fromBorderSide(BorderSide.none),
+            ),
+            child: TextField(
+              focusNode: data.focusNode,
+              controller: _controller,
+              maxLength: widget.length,
+              onChanged: _onChanged,
+              decoration: const BoxDecoration(),
+              style: DefaultTextStyle.of(context)
+                  .style
+                  .merge(theme.typography.mono),
+              border: const Border.fromBorderSide(BorderSide.none),
+              textAlign: TextAlign.center,
+              initialValue: data.initialValue,
+              maxLines: 1,
+              obscureText: widget.obscureText,
+              inputFormatters: widget.inputFormatters,
+              placeholder: widget.placeholder,
+              padding: EdgeInsets.symmetric(
+                horizontal: 6 * theme.scaling,
+              ),
             ),
           ),
         ),
@@ -562,9 +600,9 @@ class _FormattedInputState extends State<FormattedInput> {
         }
       }
     }
+    final compTheme = ComponentTheme.maybeOf<FormattedInputTheme>(context);
     return SizedBox(
-      height: kTextFieldHeight *
-          theme.scaling, // 32 (textfield height) + 2 (border)
+      height: (compTheme?.height ?? kTextFieldHeight) * theme.scaling, // 32 + 2
       child: TextFieldTapRegion(
         child: Focus(
           onFocusChange: (hasFocus) {
@@ -572,26 +610,31 @@ class _FormattedInputState extends State<FormattedInput> {
               _hasFocus = hasFocus;
             });
           },
-          child: OutlinedContainer(
+          child: FocusOutline(
+            focused: _hasFocus,
             borderRadius: theme.borderRadiusMd,
-            borderColor:
-                _hasFocus ? theme.colorScheme.ring : theme.colorScheme.border,
-            padding: EdgeInsets.symmetric(
-              horizontal: 6 * theme.scaling,
-            ),
-            child: Form(
-              controller: _controller,
-              child: FocusTraversalGroup(
-                policy: WidgetOrderTraversalPolicy(),
-                child: IntrinsicHeight(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      if (widget.leading != null) widget.leading!,
-                      ...children,
-                      if (widget.trailing != null) widget.trailing!,
-                    ],
+            child: OutlinedContainer(
+              borderRadius: theme.borderRadiusMd,
+              borderColor: theme.colorScheme.border,
+              backgroundColor: theme.colorScheme.input.scaleAlpha(0.3),
+              padding: compTheme?.padding ??
+                  EdgeInsets.symmetric(
+                    horizontal: 6 * theme.scaling,
+                  ),
+              child: Form(
+                controller: _controller,
+                child: FocusTraversalGroup(
+                  policy: WidgetOrderTraversalPolicy(),
+                  child: IntrinsicHeight(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (widget.leading != null) widget.leading!,
+                        ...children,
+                        if (widget.trailing != null) widget.trailing!,
+                      ],
+                    ),
                   ),
                 ),
               ),

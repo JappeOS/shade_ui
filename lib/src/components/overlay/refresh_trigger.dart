@@ -9,32 +9,142 @@ typedef RefreshIndicatorBuilder = Widget Function(
 
 typedef FutureVoidCallback = Future<void> Function();
 
+/// Theme configuration for [RefreshTrigger].
+///
+/// Example usage:
+/// ```dart
+/// ComponentTheme(
+///   data: RefreshTriggerTheme(
+///     minExtent: 100.0,
+///     maxExtent: 200.0,
+///     curve: Curves.easeInOut,
+///     completeDuration: Duration(milliseconds: 800),
+///   ),
+///   child: RefreshTrigger(
+///     onRefresh: () async {
+///       // Refresh logic here
+///     },
+///     child: ListView(
+///       children: [
+///         // List items
+///       ],
+///     ),
+///   ),
+/// )
+/// ```
+class RefreshTriggerTheme {
+  /// Minimum pull extent required to trigger refresh.
+  final double? minExtent;
+
+  /// Maximum pull extent allowed.
+  final double? maxExtent;
+
+  /// Builder for the refresh indicator.
+  final RefreshIndicatorBuilder? indicatorBuilder;
+
+  /// Animation curve for the refresh trigger.
+  final Curve? curve;
+
+  /// Duration for the completion animation.
+  final Duration? completeDuration;
+
+  /// Creates a [RefreshTriggerTheme].
+  const RefreshTriggerTheme({
+    this.minExtent,
+    this.maxExtent,
+    this.indicatorBuilder,
+    this.curve,
+    this.completeDuration,
+  });
+
+  /// Creates a copy of this theme but with the given fields replaced.
+  RefreshTriggerTheme copyWith({
+    ValueGetter<double?>? minExtent,
+    ValueGetter<double?>? maxExtent,
+    ValueGetter<RefreshIndicatorBuilder?>? indicatorBuilder,
+    ValueGetter<Curve?>? curve,
+    ValueGetter<Duration?>? completeDuration,
+  }) {
+    return RefreshTriggerTheme(
+      minExtent: minExtent == null ? this.minExtent : minExtent(),
+      maxExtent: maxExtent == null ? this.maxExtent : maxExtent(),
+      indicatorBuilder:
+          indicatorBuilder == null ? this.indicatorBuilder : indicatorBuilder(),
+      curve: curve == null ? this.curve : curve(),
+      completeDuration:
+          completeDuration == null ? this.completeDuration : completeDuration(),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is RefreshTriggerTheme &&
+        other.minExtent == minExtent &&
+        other.maxExtent == maxExtent &&
+        other.indicatorBuilder == indicatorBuilder &&
+        other.curve == curve &&
+        other.completeDuration == completeDuration;
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      minExtent, maxExtent, indicatorBuilder, curve, completeDuration);
+
+  @override
+  String toString() {
+    return 'RefreshTriggerTheme('
+        'minExtent: $minExtent, '
+        'maxExtent: $maxExtent, '
+        'indicatorBuilder: $indicatorBuilder, '
+        'curve: $curve, '
+        'completeDuration: $completeDuration)';
+  }
+}
+
+/// A widget that provides pull-to-refresh functionality.
+///
+/// The [RefreshTrigger] wraps a scrollable widget and provides pull-to-refresh
+/// functionality. When the user pulls the content beyond the [minExtent],
+/// the [onRefresh] callback is triggered.
+///
+/// You can customize the appearance and behavior using [RefreshTriggerTheme]:
+/// ```dart
+/// ComponentTheme(
+///   data: RefreshTriggerTheme(
+///     minExtent: 100.0,
+///     maxExtent: 200.0,
+///     curve: Curves.bounceOut,
+///   ),
+///   child: RefreshTrigger(...),
+/// )
+/// ```
 class RefreshTrigger extends StatefulWidget {
   static Widget defaultIndicatorBuilder(
       BuildContext context, RefreshTriggerStage stage) {
     return DefaultRefreshIndicator(stage: stage);
   }
 
-  final double minExtent;
+  final double? minExtent;
   final double? maxExtent;
   final FutureVoidCallback? onRefresh;
   final Widget child;
   final Axis direction;
   final bool reverse;
-  final RefreshIndicatorBuilder indicatorBuilder;
-  final Curve curve;
-  final Duration completeDuration;
+  final RefreshIndicatorBuilder? indicatorBuilder;
+  final Curve? curve;
+  final Duration? completeDuration;
 
   const RefreshTrigger({
     super.key,
-    this.minExtent = 75.0,
-    this.maxExtent = 150.0,
+    this.minExtent,
+    this.maxExtent,
     this.onRefresh,
     this.direction = Axis.vertical,
     this.reverse = false,
-    this.indicatorBuilder = defaultIndicatorBuilder,
-    this.curve = Curves.easeOutSine,
-    this.completeDuration = const Duration(milliseconds: 500),
+    this.indicatorBuilder,
+    this.curve,
+    this.completeDuration,
     required this.child,
   });
 
@@ -101,10 +211,10 @@ class _DefaultRefreshIndicatorState extends State<DefaultRefreshIndicator> {
           double angle;
           if (widget.stage.direction == Axis.vertical) {
             // 0 -> 1 (0 -> 180)
-            angle = -pi * widget.stage.extent.value.clamp(0, 1);
+            angle = -pi * widget.stage.extentValue.clamp(0, 1);
           } else {
             // 0 -> 1 (90 -> 270)
-            angle = -pi / 2 + -pi * widget.stage.extent.value.clamp(0, 1);
+            angle = -pi / 2 + -pi * widget.stage.extentValue.clamp(0, 1);
           }
           return Row(
             mainAxisSize: MainAxisSize.min,
@@ -114,7 +224,7 @@ class _DefaultRefreshIndicatorState extends State<DefaultRefreshIndicator> {
                 child: const Icon(Icons.arrow_downward),
               ),
               Flexible(
-                  child: Text(widget.stage.extent.value < 1
+                  child: Text(widget.stage.extentValue < 1
                       ? localizations.refreshTriggerPull
                       : localizations.refreshTriggerRelease)),
               Transform.rotate(
@@ -192,15 +302,55 @@ class RefreshTriggerState extends State<RefreshTrigger>
   Future<void>? _currentFuture;
   int _currentFutureCount = 0;
 
+  // Computed theme values
+  late double _minExtent;
+  late double _maxExtent;
+  late RefreshIndicatorBuilder _indicatorBuilder;
+  late Curve _curve;
+  late Duration _completeDuration;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _updateThemeValues();
+  }
+
+  @override
+  void didUpdateWidget(RefreshTrigger oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _updateThemeValues();
+  }
+
+  void _updateThemeValues() {
+    final theme = Theme.of(context);
+    final compTheme = ComponentTheme.maybeOf<RefreshTriggerTheme>(context);
+
+    _minExtent = styleValue(
+        widgetValue: widget.minExtent,
+        themeValue: compTheme?.minExtent,
+        defaultValue: 75.0 * theme.scaling);
+    _maxExtent = styleValue(
+        widgetValue: widget.maxExtent,
+        themeValue: compTheme?.maxExtent,
+        defaultValue: 150.0 * theme.scaling);
+    _indicatorBuilder = widget.indicatorBuilder ??
+        compTheme?.indicatorBuilder ??
+        RefreshTrigger.defaultIndicatorBuilder;
+    _curve = widget.curve ?? compTheme?.curve ?? Curves.easeOutSine;
+    _completeDuration = widget.completeDuration ??
+        compTheme?.completeDuration ??
+        const Duration(milliseconds: 500);
+  }
+
   double _calculateSafeExtent(double extent) {
-    if (extent > widget.minExtent) {
-      double relativeExtent = extent - widget.minExtent;
-      double? maxExtent = widget.maxExtent;
-      if (maxExtent == null) {
-        return widget.minExtent;
-      }
-      double diff = (maxExtent - widget.minExtent) - relativeExtent;
-      double diffNormalized = diff / (maxExtent - widget.minExtent);
+    if (widget.reverse) {
+      extent = -extent;
+    }
+    if (extent > _minExtent) {
+      double relativeExtent = extent - _minExtent;
+      double maxExtent = _maxExtent;
+      double diff = (maxExtent - _minExtent) - relativeExtent;
+      double diffNormalized = diff / (maxExtent - _minExtent);
       return maxExtent - _decelerateCurve(diffNormalized.clamp(0, 1)) * diff;
     }
     return extent;
@@ -244,7 +394,9 @@ class RefreshTriggerState extends State<RefreshTrigger>
     }
     if (notification is ScrollEndNotification && _scrolling) {
       setState(() {
-        if (_currentExtent >= widget.minExtent) {
+        double normalizedExtent =
+            widget.reverse ? -_currentExtent : _currentExtent;
+        if (normalizedExtent >= _minExtent) {
           _scrolling = false;
           refresh();
         } else {
@@ -253,27 +405,37 @@ class RefreshTriggerState extends State<RefreshTrigger>
         }
       });
     } else if (notification is ScrollUpdateNotification) {
-      var delta = notification.scrollDelta;
+      final delta = notification.scrollDelta;
       if (delta != null) {
+        final axisDirection = notification.metrics.axisDirection;
+        final normalizedDelta = (axisDirection == AxisDirection.down ||
+                axisDirection == AxisDirection.right)
+            ? -delta
+            : delta;
         if (_stage == TriggerStage.pulling) {
-          bool forward = widget.reverse ? delta > 0 : delta < 0;
+          final forward = normalizedDelta > 0;
           if ((forward && _userScrollDirection == ScrollDirection.forward) ||
               (!forward && _userScrollDirection == ScrollDirection.reverse)) {
             setState(() {
-              _currentExtent -= delta;
+              _currentExtent +=
+                  widget.reverse ? -normalizedDelta : normalizedDelta;
             });
           } else {
-            if (_currentExtent >= widget.minExtent) {
+            if (_currentExtent >= _minExtent) {
               _scrolling = false;
               refresh();
             } else {
               setState(() {
-                _currentExtent -= delta;
+                _currentExtent +=
+                    widget.reverse ? -normalizedDelta : normalizedDelta;
               });
             }
           }
         } else if (_stage == TriggerStage.idle &&
-            (widget.reverse ? delta > 0 : delta < 0)) {
+            (widget.reverse
+                ? notification.metrics.extentAfter == 0
+                : notification.metrics.extentBefore == 0) &&
+            (widget.reverse ? -normalizedDelta : normalizedDelta) > 0) {
           setState(() {
             _currentExtent = 0;
             _scrolling = true;
@@ -284,16 +446,23 @@ class RefreshTriggerState extends State<RefreshTrigger>
     } else if (notification is UserScrollNotification) {
       _userScrollDirection = notification.direction;
     } else if (notification is OverscrollNotification) {
-      if (_stage == TriggerStage.idle) {
-        setState(() {
-          _currentExtent = 0;
-          _scrolling = true;
-          _stage = TriggerStage.pulling;
-        });
-      } else {
-        setState(() {
-          _currentExtent -= notification.overscroll;
-        });
+      final axisDirection = notification.metrics.axisDirection;
+      final overscroll = (axisDirection == AxisDirection.down ||
+              axisDirection == AxisDirection.right)
+          ? -notification.overscroll
+          : notification.overscroll;
+      if (overscroll > 0) {
+        if (_stage == TriggerStage.idle) {
+          setState(() {
+            _currentExtent = 0;
+            _scrolling = true;
+            _stage = TriggerStage.pulling;
+          });
+        } else {
+          setState(() {
+            _currentExtent += overscroll;
+          });
+        }
       }
     }
     return false;
@@ -316,7 +485,7 @@ class RefreshTriggerState extends State<RefreshTrigger>
         _currentFuture = null;
         _stage = TriggerStage.completed;
         // Future.delayed works the same
-        Timer(widget.completeDuration, () {
+        Timer(_completeDuration, () {
           if (!mounted) {
             return;
           }
@@ -341,16 +510,16 @@ class RefreshTriggerState extends State<RefreshTrigger>
 
   @override
   Widget build(BuildContext context) {
-    var tween = _RefreshTriggerTween(widget.minExtent);
+    var tween = _RefreshTriggerTween(_minExtent);
     return NotificationListener<ScrollNotification>(
       onNotification: _handleScrollNotification,
       child: AnimatedValueBuilder.animation(
         value: _stage == TriggerStage.refreshing ||
                 _stage == TriggerStage.completed
-            ? widget.minExtent
+            ? _minExtent
             : _currentExtent,
         duration: _scrolling ? Duration.zero : kDefaultDuration,
-        curve: Curves.easeInOut,
+        curve: _curve,
         builder: (context, animation) {
           return Stack(
             fit: StackFit.passthrough,
@@ -358,12 +527,13 @@ class RefreshTriggerState extends State<RefreshTrigger>
               widget.child,
               AnimatedBuilder(
                 animation: animation,
-                child: widget.indicatorBuilder(
+                child: _indicatorBuilder(
                   context,
                   RefreshTriggerStage(
                     _stage,
                     tween.animate(animation),
                     widget.direction,
+                    widget.reverse,
                   ),
                 ),
                 builder: (context, child) {
@@ -408,8 +578,12 @@ class RefreshTriggerStage {
   final TriggerStage stage;
   final Animation<double> extent;
   final Axis direction;
+  final bool reverse;
 
-  const RefreshTriggerStage(this.stage, this.extent, this.direction);
+  const RefreshTriggerStage(
+      this.stage, this.extent, this.direction, this.reverse);
+
+  double get extentValue => extent.value;
 }
 
 class RefreshTriggerPhysics extends ScrollPhysics {}

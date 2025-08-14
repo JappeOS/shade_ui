@@ -1,6 +1,29 @@
 import 'package:flutter/foundation.dart';
 import 'package:shade_ui/shade_ui.dart';
 
+/// Theme configuration for calendar widgets.
+class CalendarTheme {
+  /// Color of navigation arrow icons.
+  final Color? arrowIconColor;
+
+  const CalendarTheme({this.arrowIconColor});
+
+  CalendarTheme copyWith({ValueGetter<Color?>? arrowIconColor}) {
+    return CalendarTheme(
+        arrowIconColor:
+            arrowIconColor == null ? this.arrowIconColor : arrowIconColor());
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is CalendarTheme && other.arrowIconColor == arrowIconColor;
+  }
+
+  @override
+  int get hashCode => arrowIconColor.hashCode;
+}
+
 enum CalendarViewType {
   date,
   month,
@@ -73,6 +96,9 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
   Widget build(BuildContext context) {
     ShadcnLocalizations localizations = ShadcnLocalizations.of(context);
     final theme = Theme.of(context);
+    final compTheme = ComponentTheme.maybeOf<CalendarTheme>(context);
+    final arrowColor =
+        styleValue(themeValue: compTheme?.arrowIconColor, defaultValue: null);
     final viewMode = widget.viewMode ?? widget.selectionMode;
     if (widget.selectionMode == CalendarSelectionMode.range) {
       return IntrinsicWidth(
@@ -105,7 +131,8 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                             }
                           });
                         },
-                        child: const Icon(LucideIcons.arrowLeft).iconXSmall(),
+                        child: Icon(LucideIcons.arrowLeft, color: arrowColor)
+                            .iconXSmall(),
                       ),
                       SizedBox(
                         width: theme.scaling * 16,
@@ -165,8 +192,8 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                               }
                             });
                           },
-                          child:
-                              const Icon(LucideIcons.arrowRight).iconXSmall(),
+                          child: Icon(LucideIcons.arrowRight, color: arrowColor)
+                              .iconXSmall(),
                         ),
                     ],
                   ),
@@ -231,8 +258,8 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                               }
                             });
                           },
-                          child:
-                              const Icon(LucideIcons.arrowRight).iconXSmall(),
+                          child: Icon(LucideIcons.arrowRight, color: arrowColor)
+                              .iconXSmall(),
                         ),
                       ],
                     ),
@@ -317,7 +344,8 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                     }
                   });
                 },
-                child: const Icon(LucideIcons.arrowLeft).iconXSmall(),
+                child:
+                    Icon(LucideIcons.arrowLeft, color: arrowColor).iconXSmall(),
               ),
               SizedBox(
                 width: theme.scaling * 16,
@@ -368,7 +396,8 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
                     }
                   });
                 },
-                child: const Icon(LucideIcons.arrowRight).iconXSmall(),
+                child: Icon(LucideIcons.arrowRight, color: arrowColor)
+                    .iconXSmall(),
               ),
             ],
           ),
@@ -415,7 +444,7 @@ class _DatePickerDialogState extends State<DatePickerDialog> {
         stateBuilder: widget.stateBuilder,
         onChanged: (value) {
           setState(() {
-            onViewChanged(view.copyWith(year: value));
+            onViewChanged(view.copyWith(year: () => value));
           });
         },
       );
@@ -704,12 +733,12 @@ class CalendarView {
   int get hashCode => year.hashCode ^ month.hashCode;
 
   CalendarView copyWith({
-    int? year,
-    int? month,
+    ValueGetter<int>? year,
+    ValueGetter<int>? month,
   }) {
     return CalendarView(
-      year ?? this.year,
-      month ?? this.month,
+      year == null ? this.year : year(),
+      month == null ? this.month : month(),
     );
   }
 }
@@ -965,7 +994,7 @@ class MonthCalendar extends StatelessWidget {
           indexAtRow: (i - 1) % 4,
           rowCount: 4,
           onTap: () {
-            onChanged(value.copyWith(month: i));
+            onChanged(value.copyWith(month: () => i));
           },
           width: theme.scaling * 56,
           state: stateBuilder?.call(date) ?? DateState.enabled,

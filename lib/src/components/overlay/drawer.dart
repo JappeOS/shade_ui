@@ -6,6 +6,59 @@ import 'package:shade_ui/shade_ui.dart';
 typedef DrawerBuilder = Widget Function(BuildContext context, Size extraSize,
     Size size, EdgeInsets padding, int stackIndex);
 
+/// Theme data for drawer and sheet overlays.
+class DrawerTheme {
+  final double? surfaceOpacity;
+  final double? surfaceBlur;
+  final Color? barrierColor;
+  final bool? showDragHandle;
+  final Size? dragHandleSize;
+
+  const DrawerTheme({
+    this.surfaceOpacity,
+    this.surfaceBlur,
+    this.barrierColor,
+    this.showDragHandle,
+    this.dragHandleSize,
+  });
+
+  DrawerTheme copyWith({
+    ValueGetter<double?>? surfaceOpacity,
+    ValueGetter<double?>? surfaceBlur,
+    ValueGetter<Color?>? barrierColor,
+    ValueGetter<bool?>? showDragHandle,
+    ValueGetter<Size?>? dragHandleSize,
+  }) {
+    return DrawerTheme(
+      surfaceOpacity:
+          surfaceOpacity == null ? this.surfaceOpacity : surfaceOpacity(),
+      surfaceBlur: surfaceBlur == null ? this.surfaceBlur : surfaceBlur(),
+      barrierColor: barrierColor == null ? this.barrierColor : barrierColor(),
+      showDragHandle:
+          showDragHandle == null ? this.showDragHandle : showDragHandle(),
+      dragHandleSize:
+          dragHandleSize == null ? this.dragHandleSize : dragHandleSize(),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      other is DrawerTheme &&
+      other.surfaceOpacity == surfaceOpacity &&
+      other.surfaceBlur == surfaceBlur &&
+      other.barrierColor == barrierColor &&
+      other.showDragHandle == showDragHandle &&
+      other.dragHandleSize == dragHandleSize;
+
+  @override
+  int get hashCode => Object.hash(surfaceOpacity, surfaceBlur, barrierColor,
+      showDragHandle, dragHandleSize);
+
+  @override
+  String toString() =>
+      'DrawerTheme(surfaceOpacity: $surfaceOpacity, surfaceBlur: $surfaceBlur, barrierColor: $barrierColor, showDragHandle: $showDragHandle, dragHandleSize: $dragHandleSize)';
+}
+
 DrawerOverlayCompleter<T?> openDrawerOverlay<T>({
   required BuildContext context,
   required WidgetBuilder builder,
@@ -15,7 +68,7 @@ DrawerOverlayCompleter<T?> openDrawerOverlay<T>({
   bool barrierDismissible = true,
   WidgetBuilder? backdropBuilder,
   bool useSafeArea = true,
-  bool showDragHandle = true,
+  bool? showDragHandle,
   BorderRadiusGeometry? borderRadius,
   Size? dragHandleSize,
   bool transformBackdrop = true,
@@ -27,6 +80,12 @@ DrawerOverlayCompleter<T?> openDrawerOverlay<T>({
   BoxConstraints? constraints,
   AlignmentGeometry? alignment,
 }) {
+  final theme = ComponentTheme.maybeOf<DrawerTheme>(context);
+  showDragHandle ??= theme?.showDragHandle ?? true;
+  surfaceOpacity ??= theme?.surfaceOpacity;
+  surfaceBlur ??= theme?.surfaceBlur;
+  barrierColor ??= theme?.barrierColor;
+  dragHandleSize ??= theme?.dragHandleSize;
   return openRawDrawer<T>(
     context: context,
     barrierDismissible: barrierDismissible,
@@ -44,7 +103,7 @@ DrawerOverlayCompleter<T?> openDrawerOverlay<T>({
         draggable: draggable,
         extraSize: extraSize,
         size: size,
-        showDragHandle: showDragHandle,
+        showDragHandle: showDragHandle ?? true,
         dragHandleSize: dragHandleSize,
         padding: padding,
         borderRadius: borderRadius,
@@ -75,6 +134,8 @@ DrawerOverlayCompleter<T?> openSheetOverlay<T>({
   BoxConstraints? constraints,
   AlignmentGeometry? alignment,
 }) {
+  final theme = ComponentTheme.maybeOf<DrawerTheme>(context);
+  barrierColor ??= theme?.barrierColor;
   return openRawDrawer<T>(
     context: context,
     transformBackdrop: transformBackdrop,
@@ -113,7 +174,7 @@ Future<T?> openDrawer<T>({
   bool barrierDismissible = true,
   WidgetBuilder? backdropBuilder,
   bool useSafeArea = true,
-  bool showDragHandle = true,
+  bool? showDragHandle,
   BorderRadiusGeometry? borderRadius,
   Size? dragHandleSize,
   bool transformBackdrop = true,
@@ -228,17 +289,18 @@ class _DrawerWrapperState extends State<DrawerWrapper>
   late ControlledAnimation _extraOffset;
 
   OverlayPosition get resolvedPosition {
-    if (widget.position == OverlayPosition.start) {
+    var position = widget.position;
+    if (position == OverlayPosition.start) {
       return Directionality.of(context) == TextDirection.ltr
           ? OverlayPosition.left
           : OverlayPosition.right;
     }
-    if (widget.position == OverlayPosition.end) {
+    if (position == OverlayPosition.end) {
       return Directionality.of(context) == TextDirection.ltr
           ? OverlayPosition.right
           : OverlayPosition.left;
     }
-    return widget.position;
+    return position;
   }
 
   @override
@@ -343,6 +405,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             }
           },
           child: Row(
+            textDirection: TextDirection.ltr,
             mainAxisSize: MainAxisSize.min,
             children: [
               AnimatedBuilder(
@@ -357,7 +420,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
                     return Transform.scale(
                         scaleX:
                             1 + _extraOffset.value / getSize(context).width / 4,
-                        alignment: AlignmentDirectional.centerEnd,
+                        alignment: Alignment.centerRight,
                         child: child);
                   },
                   animation: _extraOffset,
@@ -406,6 +469,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
             }
           },
           child: Row(
+            textDirection: TextDirection.ltr,
             mainAxisSize: MainAxisSize.min,
             children: [
               if (widget.showDragHandle) ...[
@@ -419,7 +483,7 @@ class _DrawerWrapperState extends State<DrawerWrapper>
                     return Transform.scale(
                         scaleX:
                             1 + _extraOffset.value / getSize(context).width / 4,
-                        alignment: AlignmentDirectional.centerStart,
+                        alignment: Alignment.centerLeft,
                         child: child);
                   },
                   animation: _extraOffset,
@@ -1364,20 +1428,28 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
   Widget build(BuildContext context) {
     AlignmentGeometry alignment;
     Offset startFractionalOffset;
-    bool padTop = widget.useSafeArea && widget.position != OverlayPosition.top;
-    bool padBottom =
-        widget.useSafeArea && widget.position != OverlayPosition.bottom;
-    bool padLeft =
-        widget.useSafeArea && widget.position != OverlayPosition.left;
-    bool padRight =
-        widget.useSafeArea && widget.position != OverlayPosition.right;
-    switch (widget.position) {
+    var position = widget.position;
+    final textDirection = Directionality.of(context);
+    if (position == OverlayPosition.start) {
+      position = textDirection == TextDirection.ltr
+          ? OverlayPosition.left
+          : OverlayPosition.right;
+    } else if (position == OverlayPosition.end) {
+      position = textDirection == TextDirection.ltr
+          ? OverlayPosition.right
+          : OverlayPosition.left;
+    }
+    bool padTop = widget.useSafeArea && position != OverlayPosition.top;
+    bool padBottom = widget.useSafeArea && position != OverlayPosition.bottom;
+    bool padLeft = widget.useSafeArea && position != OverlayPosition.left;
+    bool padRight = widget.useSafeArea && position != OverlayPosition.right;
+    switch (position) {
       case OverlayPosition.left:
-        alignment = AlignmentDirectional.centerStart;
+        alignment = Alignment.centerLeft;
         startFractionalOffset = const Offset(-1, 0);
         break;
       case OverlayPosition.right:
-        alignment = AlignmentDirectional.centerEnd;
+        alignment = Alignment.centerRight;
         startFractionalOffset = const Offset(1, 0);
         break;
       case OverlayPosition.top:
@@ -1419,13 +1491,13 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
             Size additionalSize;
             Offset additionalOffset;
             bool insetTop =
-                widget.useSafeArea && widget.position == OverlayPosition.top;
+                widget.useSafeArea && position == OverlayPosition.top;
             bool insetBottom =
-                widget.useSafeArea && widget.position == OverlayPosition.bottom;
+                widget.useSafeArea && position == OverlayPosition.bottom;
             bool insetLeft =
-                widget.useSafeArea && widget.position == OverlayPosition.left;
+                widget.useSafeArea && position == OverlayPosition.left;
             bool insetRight =
-                widget.useSafeArea && widget.position == OverlayPosition.right;
+                widget.useSafeArea && position == OverlayPosition.right;
             MediaQueryData mediaQueryData = MediaQuery.of(context);
             EdgeInsets padding =
                 mediaQueryData.padding + mediaQueryData.viewInsets;
@@ -1433,7 +1505,7 @@ class DrawerEntryWidgetState<T> extends State<DrawerEntryWidget<T>>
               additionalSize = Size.zero;
               additionalOffset = Offset.zero;
             } else {
-              switch (widget.position) {
+              switch (position) {
                 case OverlayPosition.left:
                   additionalSize = Size(extraSize.width / 2, 0);
                   additionalOffset = Offset(-additionalSize.width, 0);

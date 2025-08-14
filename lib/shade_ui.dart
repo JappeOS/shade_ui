@@ -22,7 +22,8 @@ export 'package:flutter/widgets.dart'
         Table,
         TableRow,
         TableCell,
-        FormField;
+        FormField,
+        RadioGroup;
 // bundle from gap
 export 'package:gap/gap.dart';
 // hide pixel_snap overriden widgets
@@ -196,6 +197,7 @@ export 'src/shadcn_app.dart';
 export 'src/theme/color_scheme.dart';
 export 'src/theme/generated_colors.dart';
 export 'src/theme/generated_themes.dart';
+export 'src/theme/legacy_generated_themes.dart';
 export 'src/theme/theme.dart';
 export 'src/theme/typography.dart';
 export 'src/util.dart';
@@ -204,3 +206,4 @@ export 'src/components/form/object_input.dart';
 export 'src/components/form/item_picker.dart';
 export 'src/components/form/multiple_choice.dart';
 export 'src/components/wrapper.dart';
+export 'src/components/navigation/subfocus.dart';

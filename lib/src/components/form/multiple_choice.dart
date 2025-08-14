@@ -1,5 +1,33 @@
 import 'package:shade_ui/shade_ui.dart';
 
+/// Theme data for [MultipleChoice] and [MultipleAnswer].
+class MultipleChoiceTheme {
+  /// Whether selections can be unselected.
+  final bool? allowUnselect;
+
+  /// Creates a [MultipleChoiceTheme].
+  const MultipleChoiceTheme({this.allowUnselect});
+
+  /// Returns a copy of this theme with the given fields replaced by the
+  /// non-null parameters.
+  MultipleChoiceTheme copyWith({ValueGetter<bool?>? allowUnselect}) {
+    return MultipleChoiceTheme(
+      allowUnselect:
+          allowUnselect == null ? this.allowUnselect : allowUnselect(),
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      other is MultipleChoiceTheme && other.allowUnselect == allowUnselect;
+
+  @override
+  int get hashCode => allowUnselect.hashCode;
+
+  @override
+  String toString() => 'MultipleChoiceTheme(allowUnselect: $allowUnselect)';
+}
+
 mixin Choice<T> {
   static void choose<T>(BuildContext context, T item) {
     Data.of<Choice<T>>(context).selectItem(item);
@@ -33,7 +61,7 @@ class ControlledMultipleAnswer<T> extends StatelessWidget
   final ValueChanged<Iterable<T>?>? onChanged;
   @override
   final bool enabled;
-  final bool allowUnselect;
+  final bool? allowUnselect;
   final Widget child;
 
   const ControlledMultipleAnswer({
@@ -42,7 +70,7 @@ class ControlledMultipleAnswer<T> extends StatelessWidget
     this.onChanged,
     this.initialValue,
     this.enabled = true,
-    this.allowUnselect = true,
+    this.allowUnselect,
     required this.child,
   });
 
@@ -76,7 +104,7 @@ class ControlledMultipleChoice<T> extends StatelessWidget
   final ValueChanged<T?>? onChanged;
   @override
   final bool enabled;
-  final bool allowUnselect;
+  final bool? allowUnselect;
   final Widget child;
 
   const ControlledMultipleChoice({
@@ -85,7 +113,7 @@ class ControlledMultipleChoice<T> extends StatelessWidget
     this.onChanged,
     this.initialValue,
     this.enabled = true,
-    this.allowUnselect = false,
+    this.allowUnselect,
     required this.child,
   });
 
@@ -114,7 +142,7 @@ class MultipleChoice<T> extends StatefulWidget {
   final T? value;
   final ValueChanged<T?>? onChanged;
   final bool? enabled;
-  final bool allowUnselect;
+  final bool? allowUnselect;
 
   const MultipleChoice({
     super.key,
@@ -122,7 +150,7 @@ class MultipleChoice<T> extends StatefulWidget {
     this.value,
     this.onChanged,
     this.enabled,
-    this.allowUnselect = false,
+    this.allowUnselect,
   });
 
   @override
@@ -168,7 +196,7 @@ class _MultipleChoiceState<T> extends State<MultipleChoice<T>>
     }
     if (widget.onChanged != null) {
       if (widget.value == item) {
-        if (widget.allowUnselect) {
+        if (_allowUnselect) {
           widget.onChanged?.call(null);
         }
       } else {
@@ -185,6 +213,11 @@ class _MultipleChoiceState<T> extends State<MultipleChoice<T>>
     }
     return [value];
   }
+
+  bool get _allowUnselect {
+    final theme = ComponentTheme.maybeOf<MultipleChoiceTheme>(context);
+    return widget.allowUnselect ?? theme?.allowUnselect ?? false;
+  }
 }
 
 class MultipleAnswer<T> extends StatefulWidget {
@@ -192,7 +225,7 @@ class MultipleAnswer<T> extends StatefulWidget {
   final Iterable<T>? value;
   final ValueChanged<Iterable<T>?>? onChanged;
   final bool? enabled;
-  final bool allowUnselect;
+  final bool? allowUnselect;
 
   const MultipleAnswer({
     super.key,
@@ -200,7 +233,7 @@ class MultipleAnswer<T> extends StatefulWidget {
     this.value,
     this.onChanged,
     this.enabled,
-    this.allowUnselect = true,
+    this.allowUnselect,
   });
 
   @override
@@ -240,7 +273,7 @@ class _MultipleAnswerState<T> extends State<MultipleAnswer<T>>
     if (value == null) {
       widget.onChanged?.call([item]);
     } else if (value.contains(item)) {
-      if (widget.allowUnselect) {
+      if (_allowUnselect) {
         widget.onChanged?.call(value.where((e) => e != item));
       }
     } else {
@@ -256,5 +289,10 @@ class _MultipleAnswerState<T> extends State<MultipleAnswer<T>>
   @override
   void didReplaceFormValue(Iterable<T>? value) {
     widget.onChanged?.call(value);
+  }
+
+  bool get _allowUnselect {
+    final theme = ComponentTheme.maybeOf<MultipleChoiceTheme>(context);
+    return widget.allowUnselect ?? theme?.allowUnselect ?? true;
   }
 }
