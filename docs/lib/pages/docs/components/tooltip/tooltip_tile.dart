@@ -1,6 +1,6 @@
 import 'package:docs/pages/docs/components_page.dart';
 import 'package:flutter/material.dart' as material hide Card;
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 // paint a cursor
 class CursorPainter extends CustomPainter {

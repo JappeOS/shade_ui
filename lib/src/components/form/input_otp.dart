@@ -31,7 +31,6 @@ class InputOTPTheme {
   @override
   int get hashCode => Object.hash(spacing, height);
 }
->>>>>>> upstream/master
 
 class _InputOTPSpacing extends StatelessWidget {
   const _InputOTPSpacing();

@@ -1,6 +1,6 @@
 import 'package:docs/pages/docs/components_page.dart';
 import 'package:flutter/material.dart' hide Card;
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class StepsTile extends StatelessWidget implements IComponentPage {
   const StepsTile({super.key});

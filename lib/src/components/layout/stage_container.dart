@@ -1,8 +1,6 @@
 import 'dart:math';
 
-import 'package:flutter/widgets.dart';
-
-import '../../../shadcn_flutter.dart';
+import '../../../shade_ui.dart';
 
 abstract class StageBreakpoint {
   factory StageBreakpoint.constant(

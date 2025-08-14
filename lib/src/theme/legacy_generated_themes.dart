@@ -1,4 +1,4 @@
-import '../../shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 import 'dart:ui';
 
 void _assertNotThemeModeSystem(ThemeMode mode, String label) {

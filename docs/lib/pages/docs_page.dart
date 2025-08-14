@@ -557,7 +557,6 @@ class DocsPageState extends State<DocsPage> {
                                 vertical: 12 * theme.scaling,
                                 horizontal: 18 * theme.scaling,
                               ),
-                            ],
                             trailing: [
                               GhostButton(
                                 density: ButtonDensity.icon,

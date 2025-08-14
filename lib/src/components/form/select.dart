@@ -82,7 +82,6 @@ class SelectTheme {
         autoClosePopover,
       );
 }
->>>>>>> upstream/master
 
 class SelectController<T> extends ValueNotifier<T?>
     with ComponentController<T?> {

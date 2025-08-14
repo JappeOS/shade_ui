@@ -92,7 +92,6 @@ import 'components/swiper/swiper_tile.dart';
 import 'components/tab_pane/tab_pane_tile.dart';
 import 'components/table/table_tile.dart';
 import 'components/timeline_animation/timeline_animation_tile.dart';
-import 'components/window/window_tile.dart';
 
 const kComponentsMode = ComponentsMode.normal;
 
@@ -156,7 +155,6 @@ class _ComponentsPageState extends State<ComponentsPage> {
             const Gap(16),
             wrap(
               children: [
-<<<<<<< HEAD
                 const ComponentCard(
                   name: 'accordion',
                   title: 'Accordion',
@@ -246,10 +244,8 @@ class _ComponentsPageState extends State<ComponentsPage> {
                     ),
                   ),
                 ),
-=======
                 AccordionTile(),
                 CollapsibleTile(),
->>>>>>> upstream/master
               ],
             ),
             const Text('Feedback').h2().anchored(feedbackKey),
@@ -306,7 +302,6 @@ class _ComponentsPageState extends State<ComponentsPage> {
               const ExpandableSidebarTile(),
               const ScaffoldTile(),
               const SwiperTile(),
-              const WindowTile(),
             ]),
             const Text('Navigation').h2().anchored(navigationKey),
             const Gap(16),

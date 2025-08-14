@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:email_validator/email_validator.dart' as email_validator;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart' as widgets;
-import 'package:shadcn_flutter/src/components/layout/focus_outline.dart';
+import 'package:shade_ui/src/components/layout/focus_outline.dart';
 
 import '../../../shade_ui.dart';
 

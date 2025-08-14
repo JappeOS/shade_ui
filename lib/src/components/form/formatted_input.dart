@@ -33,7 +33,6 @@ class FormattedInputTheme {
   @override
   int get hashCode => Object.hash(height, padding);
 }
->>>>>>> upstream/master
 
 abstract class InputPart implements FormattedValuePart {
   const factory InputPart.static(String text) = StaticPart;

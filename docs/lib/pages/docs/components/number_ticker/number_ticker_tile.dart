@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 import 'package:docs/pages/docs/components_page.dart';
 
 class NumberTickerTile extends StatelessWidget implements IComponentPage {

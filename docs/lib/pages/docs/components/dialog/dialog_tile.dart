@@ -1,6 +1,6 @@
 import 'package:docs/pages/docs/components_page.dart';
 import 'package:flutter/material.dart' as material;
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shade_ui/shade_ui.dart';
 
 class DialogTile extends StatelessWidget implements IComponentPage {
   const DialogTile({super.key});

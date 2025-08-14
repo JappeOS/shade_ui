@@ -53,7 +53,7 @@ class _AlertDialogState extends State<AlertDialog> {
           children: [
             Flexible(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,git remote -v 
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (widget.leading != null)
